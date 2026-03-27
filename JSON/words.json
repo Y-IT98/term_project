@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "theme": "Toy Story",
+    "game": "Hangman",
+    "total_words": 15,
+    "hints_per_word": 1
+  },
+  "words": [
+    {
+      "word": "WOODY",
+      "hint": "This pullstring cowboy is Andy's favourite toy"
+    },
+    {
+      "word": "BUZZ",
+      "hint": "A space ranger who believes he is a real hero"
+    },
+    {
+      "word": "JESSIE",
+      "hint": "A yodelling cowgirl with a red hat and braid"
+    },
+    {
+      "word": "SLINKY",
+      "hint": "A loyal dog toy with a springy metal body"
+    },
+    {
+      "word": "BULLSEYE",
+      "hint": "Woody's trusty horse — loyal and fast"
+    },
+    {
+      "word": "LOTSO",
+      "hint": "A strawberry-scented bear who runs Sunnyside Daycare"
+    },
+    {
+      "word": "FORKY",
+      "hint": "Bonnie made this toy from a spork and pipe cleaners"
+    },
+    {
+      "word": "HAMM",
+      "hint": "A wisecracking piggy bank who holds the change"
+    },
+    {
+      "word": "REX",
+      "hint": "An anxious green dinosaur who worries about his small arms"
+    },
+    {
+      "word": "WHEEZY",
+      "hint": "A penguin squeaky toy with a broken squeak"
+    },
+    {
+      "word": "SUNNYSIDE",
+      "hint": "The daycare centre that turns out to be a toy prison"
+    },
+    {
+      "word": "ANDYS",
+      "hint": "The name written on the bottom of Woody's boot"
+    },
+    {
+      "word": "PIZZAPLANET",
+      "hint": "The restaurant Woody and Buzz escape to in the first film"
+    },
+    {
+      "word": "LIGHTYEAR",
+      "hint": "Buzz's surname — also a unit of astronomical distance"
+    },
+    {
+      "word": "PROSPECTOR",
+      "hint": "Stinky Pete's toy title — the villain of Toy Story 2"
+    }
+  ]
+}

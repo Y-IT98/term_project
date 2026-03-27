@@ -1,0 +1,118 @@
+// Toy Story colour tokens
+:root{
+  --ts-sky-light: #77c0e3;
+  --ts-sky-mid: #a8d8f0;
+  --ts-sky-base: #e0f3fb;
+  --ts-yellow: #f9d445;
+  --ts-gold: #ffa600;
+  --ts-red: #c52330; // Woody's shirt, danger
+  --ts-navy: #013d7b; // Buzz suit, primary
+  --ts-green: #acdd9c; // Rex, success tint
+  --ts-cloud: #ffffff; // cloud fill
+  --ts-text-dark: #1a1a2e; // body text
+  --font-heading: 'Passion One', 'Impact', sans-serif;
+  --font-body: 'Boogaloo', 'Trebuchet MS', sans-serif;
+  --font-accent: 'Fredoka One', 'Arial Rounded MT Bold', sans-serif;
+}
+ 
+
+// ─── Sky gradient mixin
+@mixin ts-sky-bg {
+  background: linear-gradient(
+    180deg,
+    var(--ts-sky-light) 0%,
+    var(--ts-sky-mid) 55%,
+    var(--ts-sky-base) 100%
+  );
+}
+
+
+.container {
+  position: fixed;   // establishes positioning context for clouds
+  overflow: hidden;     // clips clouds when off-screen (prevents scrollbar)
+  width: 100%;
+  height: 100%;        // adjust to match your hero/section height
+  top:0;
+  display: flex;
+  flex-direction: column;
+  left:0;
+        
+  @include ts-sky-bg;   // applies the sky gradient from the theme mixin
+}
+
+
+
+// Cloud shape mixin
+@mixin ts-cloud($w: 100px, $h: 30px) {
+  position: absolute;
+  width: $w;
+  height: $h;
+  background: var(--ts-cloud);
+  border-radius: 50px;
+  box-shadow: 0 4px 18px rgba(255,255,255,0.6);
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    background: var(--ts-cloud);
+    border-radius: 50%;
+  }
+  &::before {
+    width: calc($w * 0.45);
+    height: calc($w * 0.45);
+    top: calc($h * -0.7);
+    left: calc($w * 0.12);
+  }
+  &::after {
+    width: calc($w * 0.30);
+    height: calc($w * 0.30);
+    top: calc($h * -0.5);
+    left: calc($w * 0.44);
+  }
+}
+
+.cloud {
+  @include ts-cloud(100px, 30px); // default size — overridden below
+}
+// ─── Individual cloud sizes + speeds ────────────────────────
+.cloud-sm {
+  @include ts-cloud(80px, 24px);
+  top: 15%;             // vertical placement within the container
+  animation: ts-cloud-drift 18s linear infinite;
+}
+
+.cloud-md {
+  @include ts-cloud(120px, 36px);
+  top: 35%;
+  animation: ts-cloud-drift 25s linear infinite ; 
+}
+.cloud3 {
+  @include ts-cloud(120px, 36px);
+  top: 45%;
+  animation: ts-cloud-drift 28s linear infinite; 
+}
+.cloud2 {
+  @include ts-cloud(80px, 24px);
+  top: 25%;
+  animation: ts-cloud-drift 22s linear infinite ;
+}
+.cloud4 {
+  @include ts-cloud(160px, 48px);
+  top: 70%;
+  animation: ts-cloud-drift 38s linear infinite ; 
+}
+.cloud5 {
+  @include ts-cloud(120px, 36px);
+  top: 80%;
+  animation: ts-cloud-drift 30s linear infinite ; 
+}
+.cloud-lg {
+  @include ts-cloud(160px, 48px);
+  top: 60%;
+  animation: ts-cloud-drift 33s linear infinite ; 
+}
+// ─── Cloud drift animation 
+@keyframes ts-cloud-drift {
+  0% { left: -150px; }
+  100% { left: 110%; }
+}

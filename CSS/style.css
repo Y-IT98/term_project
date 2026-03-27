@@ -1,0 +1,131 @@
+@import "../CSS/normalize.css";
+
+.boogaloo-regular {
+  font-family: "Boogaloo", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.fredoka-regular {
+  font-family: "Fredoka", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+.passion-one-regular {
+  font-family: "Passion One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.passion-one-bold {
+  font-family: "Passion One", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.passion-one-black {
+  font-family: "Passion One", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.title{
+    font-family: 'Passion One', 'Impact', sans-serif;
+    font-size: 3.5rem;
+    color: var(--ts-navy);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.keyboard{
+    display: grid;
+    grid-template-columns: repeat(9, 80px);
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px;
+    /* margin-top: 300px; */
+}
+.key{
+  font-family: var(--font-accent);
+  font-weight: bold;
+  background-color: var(--ts-sky-light);
+  border: 2px solid var(--ts-navy);
+  border-radius: 8px;
+  color: var(--ts-text-dark);
+  width: 80px;
+  height: 80px;
+  z-index: 2;
+  margin: 4px;
+}
+
+.game-area{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  
+}
+.hangman{
+  
+  background-color: var(--ts-sky-light);
+  border: 2px solid var(--ts-navy);
+  border-radius: 8px;
+  z-index: 3;
+  font-size: 150px;
+  color: var(--ts-navy);
+  
+}
+.image_container img{
+  max-width: 300px;
+  height: auto;
+}
+.hangman > *{
+  font-size: 150px;
+  color: var(--ts-navy);
+}
+.hangman > strong{
+  display: flex;
+  width: fit-content
+}
+.hangman > p{
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+
+}
+
+.key:hover {
+  background-color: var(--ts-green);
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+@media(max-width:388px) {
+  .keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+@media(max-width:396px) {
+  .keyboard {
+    grid-template-columns: repeat(2, 60px);
+    gap: 8px;
+    padding: 10px;
+  }
+}
+
+@media(max-width:800px) {
+  .keyboard {
+    grid-template-columns: repeat(5, 70px);
+    justify-content: space-between;
+    gap: 10px;
+    padding: 15px;
+  }
+  
+}
