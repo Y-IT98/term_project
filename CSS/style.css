@@ -89,13 +89,14 @@
   z-index: 3;
   font-size: 150px;
   color: var(--ts-navy);
+  overflow-y: hidden;
+  overflow-x: auto;
   
 }
 .play-again{
   order: 3;
   display: flex;
   justify-content: center;
-  flex-basis: 100%;
   margin-left: 10px;
 }
 .hangman button{
@@ -113,20 +114,42 @@
   max-width: 100%;
   max-height: 35vh;
   height: auto;
+  border-radius: 10px;
+  outline: 2px solid var(--ts-navy);
+}
+.image_container{
+  z-index: 6;
 }
 .hangman > *{
   font-size: 150px;
   color: var(--ts-navy);
 }
 .hangman > strong{
-  display: flex;
-  width: fit-content
+  display: block;
+  width: max-content;
+  white-space: nowrap;
 }
 .hangman > p{
   display: flex;
   justify-content: center;
   font-size: 16px;
 
+}
+.play-again button{
+  font-family: var(--font-accent);
+  font-weight: bold;
+  background-color: var(--ts-green);
+  border: 2px solid var(--ts-navy);
+  border-radius: 8px;
+  color: var(--ts-text-dark);
+  padding: 10px 20px;
+  font-size: 18px;
+}
+.play-again button:hover {
+  background-color: var(--ts-yellow);
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .key:hover {
@@ -142,14 +165,24 @@
     justify-content: center;
   }
 }
+
 @media(max-width:396px) {
   .keyboard {
     grid-template-columns: repeat(2, 60px);
     gap: 8px;
     padding: 10px;
   }
+  .hangman{
+    max-width: 300px;
+    max-height: fit-content;
+  }
 }
-
+@media (min-width:805px) {
+  .play-again{
+    flex-basis: 100%;
+  }
+  
+}
 @media(max-width:800px) {
   .status_row {
     flex-direction: column;
@@ -160,6 +193,10 @@
     justify-content: space-between;
     gap: 10px;
     padding: 15px;
+  }
+  .hangman,
+  .hangman > * {
+    font-size: 60px;
   }
   
 }

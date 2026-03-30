@@ -6,6 +6,8 @@ declare let wordDisplay: HTMLElement;
 declare let imageContainer: HTMLElement;
 declare let playAgainContainer: HTMLElement;
 declare const playAgainButton: HTMLButtonElement;
+declare const winningAudio: HTMLAudioElement;
+declare const losingAudio: HTMLAudioElement;
 declare let cloudIncrement: number;
 declare function createCloud(cloudSize: string): void;
 declare function displayKeyboard(): void;

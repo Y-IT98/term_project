@@ -6,6 +6,8 @@ let wordDisplay = document.querySelector('.hangman') as HTMLElement;
 let imageContainer = document.querySelector('.image_container') as HTMLElement;
 let playAgainContainer = document.querySelector('.play-again') as HTMLElement;
 const playAgainButton = document.createElement('button') as HTMLButtonElement;
+const winningAudio  = new Audio('../audio/buzz_winning_audio.mp3');
+const losingAudio = new Audio('../audio/losing_audio.mp3');
 playAgainButton.textContent = 'Play Again';
 let cloudIncrement: number = 5;
 function createCloud(cloudSize: string) {
@@ -100,6 +102,7 @@ async function initializeGame() {
             correctGuessImage++;
             if (!wordDisplay.innerHTML.includes('_')) {
                 wordDisplay.appendChild(document.createElement('p')).textContent = `Congratulations! You've guessed correctly! the word was: ${targetWord}`;
+                winningAudio.play();
                 keyboardContainer.querySelectorAll('.key').forEach(key => (key as HTMLButtonElement).disabled = true);
                 removeEventListener('keydown', keyHandler);
                 
@@ -114,12 +117,13 @@ async function initializeGame() {
             pressedKey.disabled = true;
             gameImage.setAttribute('src', `../Images/buzz-wrong-${falseGuessImage}.jpg`);
             falseGuessImage++;
-            falseGuessImage === 6? wordDisplay.innerHTML = `<p>Game Over! The correct word was: ${targetWord}</p>`: null;
+            falseGuessImage === 7? wordDisplay.innerHTML = `<p>Game Over! The correct word was: ${targetWord}</p>`: null;
             
-            if (falseGuessImage === 6) {
+            if (falseGuessImage === 7) {
                 keyboardContainer.querySelectorAll('.key').forEach(key => (key as HTMLButtonElement).disabled = true);
                 removeEventListener('keydown', keyHandler);
                 playAgainContainer.appendChild(playAgainButton);
+                losingAudio.play();
                 playAgainButton.onclick = () => {
                     toyStoryHangman.playAgain();
                 }

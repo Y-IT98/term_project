@@ -16,6 +16,8 @@ let wordDisplay = document.querySelector('.hangman');
 let imageContainer = document.querySelector('.image_container');
 let playAgainContainer = document.querySelector('.play-again');
 const playAgainButton = document.createElement('button');
+const winningAudio = new Audio('../audio/buzz_winning_audio.mp3');
+const losingAudio = new Audio('../audio/losing_audio.mp3');
 playAgainButton.textContent = 'Play Again';
 let cloudIncrement = 5;
 function createCloud(cloudSize) {
@@ -94,6 +96,7 @@ function initializeGame() {
                 correctGuessImage++;
                 if (!wordDisplay.innerHTML.includes('_')) {
                     wordDisplay.appendChild(document.createElement('p')).textContent = `Congratulations! You've guessed correctly! the word was: ${targetWord}`;
+                    winningAudio.play();
                     keyboardContainer.querySelectorAll('.key').forEach(key => key.disabled = true);
                     removeEventListener('keydown', keyHandler);
                     playAgainContainer.appendChild(playAgainButton);
@@ -107,11 +110,12 @@ function initializeGame() {
                 pressedKey.disabled = true;
                 gameImage.setAttribute('src', `../Images/buzz-wrong-${falseGuessImage}.jpg`);
                 falseGuessImage++;
-                falseGuessImage === 6 ? wordDisplay.innerHTML = `<p>Game Over! The correct word was: ${targetWord}</p>` : null;
-                if (falseGuessImage === 6) {
+                falseGuessImage === 7 ? wordDisplay.innerHTML = `<p>Game Over! The correct word was: ${targetWord}</p>` : null;
+                if (falseGuessImage === 7) {
                     keyboardContainer.querySelectorAll('.key').forEach(key => key.disabled = true);
                     removeEventListener('keydown', keyHandler);
                     playAgainContainer.appendChild(playAgainButton);
+                    losingAudio.play();
                     playAgainButton.onclick = () => {
                         toyStoryHangman.playAgain();
                     };
