@@ -14,6 +14,9 @@ let gameContainer = document.querySelector('.game_container');
 let keyboardContainer = document.querySelector('.keyboard');
 let wordDisplay = document.querySelector('.hangman');
 let imageContainer = document.querySelector('.image_container');
+let playAgainContainer = document.querySelector('.play-again');
+const playAgainButton = document.createElement('button');
+playAgainButton.textContent = 'Play Again';
 let cloudIncrement = 5;
 function createCloud(cloudSize) {
     let spawnedClouds = document.querySelector(`.cloud${cloudIncrement}`);
@@ -66,30 +69,13 @@ function fetchWord(objectIndex) {
 }
 function initializeGame() {
     return __awaiter(this, void 0, void 0, function* () {
-        let targetWord = yield fetchWord(0);
+        let targetWord = yield fetchWord(toyStoryHangman.currentJsonIndex);
         let correctGuessImage = 1;
         let falseGuessImage = 1;
         const gameImage = document.createElement('img');
         imageContainer.appendChild(gameImage);
-        const keepKeyboardInViewport = () => {
-            keyboardContainer.scrollIntoView({ block: 'end', inline: 'nearest' });
-        };
-        const setGuessImage = (source) => {
-            const maintainKeyboardVisibility = () => {
-                requestAnimationFrame(keepKeyboardInViewport);
-            };
-            gameImage.onload = maintainKeyboardVisibility;
-            gameImage.onerror = maintainKeyboardVisibility;
-            gameImage.setAttribute('src', source);
-            if (gameImage.complete) {
-                maintainKeyboardVisibility();
-            }
-        };
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', keepKeyboardInViewport);
-        }
         let displayWordState = Array.from(targetWord).map(() => '_');
-        document.addEventListener("keydown", (event) => {
+        const keyHandler = (event) => {
             const keyboardKey = event.key.toUpperCase();
             const targetWordFlag = targetWord.includes(keyboardKey);
             const pressedKey = Array.from(keyboardContainer.querySelectorAll('.key')).find(btn => btn.textContent === keyboardKey);
@@ -104,30 +90,62 @@ function initializeGame() {
                 wordDisplay.innerHTML = `<strong>${displayWordState.join(' ')}</strong>`;
                 pressedKey.style.backgroundColor = 'var(--ts-green)';
                 pressedKey.disabled = true;
-                setGuessImage(`../Images/buzz-right-${correctGuessImage}.jpg`);
+                gameImage.setAttribute('src', `../Images/buzz-right-${correctGuessImage}.jpg`);
                 correctGuessImage++;
                 if (!wordDisplay.innerHTML.includes('_')) {
-                    wordDisplay.innerHTML = `<p>Congratulations! You've guessed correctly!</p>`;
+                    wordDisplay.appendChild(document.createElement('p')).textContent = `Congratulations! You've guessed correctly! the word was: ${targetWord}`;
                     keyboardContainer.querySelectorAll('.key').forEach(key => key.disabled = true);
+                    removeEventListener('keydown', keyHandler);
+                    playAgainContainer.appendChild(playAgainButton);
+                    playAgainButton.onclick = () => {
+                        toyStoryHangman.playAgain();
+                    };
                 }
             }
             else {
                 pressedKey.style.backgroundColor = 'var(--ts-red)';
                 pressedKey.disabled = true;
-                setGuessImage(`../Images/buzz-wrong-${falseGuessImage}.jpg`);
+                gameImage.setAttribute('src', `../Images/buzz-wrong-${falseGuessImage}.jpg`);
                 falseGuessImage++;
                 falseGuessImage === 6 ? wordDisplay.innerHTML = `<p>Game Over! The correct word was: ${targetWord}</p>` : null;
                 if (falseGuessImage === 6) {
                     keyboardContainer.querySelectorAll('.key').forEach(key => key.disabled = true);
+                    removeEventListener('keydown', keyHandler);
+                    playAgainContainer.appendChild(playAgainButton);
+                    playAgainButton.onclick = () => {
+                        toyStoryHangman.playAgain();
+                    };
                 }
             }
-        });
+        };
+        addEventListener('keydown', keyHandler);
     });
 }
+const toyStoryHangman = {
+    startGame: initializeGame,
+    showKeyboard: displayKeyboard,
+    resetKeyboard: function () {
+        keyboardContainer.innerHTML = '';
+        this.showKeyboard();
+    },
+    createClouds: createCloud,
+    getJSONWord: fetchWord,
+    currentJsonIndex: 0,
+    incrementJsonIndex: function () {
+        this.currentJsonIndex++;
+        return this.currentJsonIndex;
+    },
+    playAgain: function () {
+        this.incrementJsonIndex();
+        this.resetKeyboard();
+        imageContainer.innerHTML = '';
+        playAgainButton.remove();
+        this.startGame();
+    }
+};
 createCloud('cloud-lg');
 createCloud('cloud-md');
 createCloud('cloud-sm');
-displayKeyboard();
-fetchWord(0);
-initializeGame();
+toyStoryHangman.showKeyboard();
+toyStoryHangman.startGame();
 //# sourceMappingURL=script.js.map
