@@ -20,6 +20,9 @@ const winningAudio = new Audio('../audio/buzz_winning_audio.mp3');
 const losingAudio = new Audio('../audio/losing_audio.mp3');
 playAgainButton.textContent = 'Play Again';
 let cloudIncrement = 5;
+// function that creates clouds of varying sizes and animates them across the screen, with a limit to prevent too many clouds from being created at once. 
+// It uses setInterval to continuously update the cloud's position and create new clouds at regular intervals, 
+// while also ensuring that the number of clouds does not exceed a certain threshold.
 function createCloud(cloudSize) {
     let spawnedClouds = document.querySelector(`.cloud${cloudIncrement}`);
     const cloud = document.createElement('div');
@@ -37,6 +40,7 @@ function createCloud(cloudSize) {
     }
     setTimeout(() => createCloud(cloudSize), 12000);
 }
+// function that generates a keyboard interface for the game, allowing players to click on letter buttons to make their guesses.
 function displayKeyboard() {
     gameContainer.appendChild(keyboardContainer);
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -47,6 +51,7 @@ function displayKeyboard() {
         keyboardContainer.appendChild(button);
     });
 }
+// function that fetches a word and its corresponding hint from a JSON file, based on the provided index.
 function fetchWord(objectIndex) {
     return fetch('../JSON/words.json')
         .then(function (response) {
@@ -69,6 +74,7 @@ function fetchWord(objectIndex) {
         console.error('Error fetching words.json:', error);
     });
 }
+// function that initializes the game by fetching a target word, setting up the game state, and adding an event listener for keyboard input to handle player guesses.
 function initializeGame() {
     return __awaiter(this, void 0, void 0, function* () {
         let targetWord = yield fetchWord(toyStoryHangman.currentJsonIndex);
@@ -125,6 +131,7 @@ function initializeGame() {
         addEventListener('keydown', keyHandler);
     });
 }
+// An object that encapsulates the main functionalities of the Toy Story Hangman game, including starting the game, displaying the keyboard, resetting the keyboard, creating clouds, fetching words from a JSON file, and handling the play again functionality.
 const toyStoryHangman = {
     startGame: initializeGame,
     showKeyboard: displayKeyboard,
@@ -147,9 +154,9 @@ const toyStoryHangman = {
         this.startGame();
     }
 };
-createCloud('cloud-lg');
-createCloud('cloud-md');
-createCloud('cloud-sm');
 toyStoryHangman.showKeyboard();
 toyStoryHangman.startGame();
+toyStoryHangman.createClouds('cloud-lg');
+toyStoryHangman.createClouds('cloud-md');
+toyStoryHangman.createClouds('cloud-sm');
 //# sourceMappingURL=script.js.map
